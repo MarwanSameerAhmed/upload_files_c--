@@ -6,16 +6,16 @@ import { Search, Loader2, Download, Lock, RefreshCw, Code2 } from 'lucide-react'
 export default function Dashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
-  
+
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  
+
   const [filterGroup, setFilterGroup] = useState('');
   const [filterAssignment, setFilterAssignment] = useState('');
   const [searchName, setSearchName] = useState('');
 
   // كلمة مرور المعلم
-  const ADMIN_PASSWORD = '123';
+  const ADMIN_PASSWORD = '778836';
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -38,7 +38,7 @@ export default function Dashboard() {
       if (error) {
         throw error;
       }
-      
+
       const formattedData = (assignments || []).map(item => ({
         timestamp: new Date(item.created_at).toLocaleString('ar-EG'),
         studentName: item.student_name,
@@ -60,23 +60,23 @@ export default function Dashboard() {
 
   if (!isAuthenticated) {
     return (
-      <div className="container" style={{maxWidth: '420px', marginTop: '100px'}}>
+      <div className="container" style={{ maxWidth: '420px', marginTop: '100px' }}>
         <div className="glass-card">
           <div className="header">
             <div className="course-badge">
               <Code2 size={18} />
               <span>C++ Dashboard</span>
             </div>
-            <h2 style={{display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', color: 'var(--primary-color)'}}>
-              <Lock size={22}/> لوحة تحكم المعلم
+            <h2 style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', color: 'var(--primary-color)' }}>
+              <Lock size={22} /> لوحة تحكم المعلم
             </h2>
             <p>يرجى إدخال كلمة المرور للاطلاع على تكاليف C++</p>
           </div>
           <form onSubmit={handleLogin}>
             <div className="form-group">
-              <input 
-                type="password" 
-                className="form-input" 
+              <input
+                type="password"
+                className="form-input"
                 placeholder="أدخل كلمة المرور..."
                 value={password}
                 onChange={e => setPassword(e.target.value)}
@@ -98,36 +98,36 @@ export default function Dashboard() {
   });
 
   return (
-    <div className="container dashboard-container" style={{marginTop: '60px'}}>
-      <div className="glass-card" style={{padding: '30px'}}>
+    <div className="container dashboard-container" style={{ marginTop: '60px' }}>
+      <div className="glass-card" style={{ padding: '30px' }}>
         <div className="dashboard-header">
           <div>
-            <h2 style={{color: 'var(--text-primary)', marginBottom: '4px'}}>
+            <h2 style={{ color: 'var(--text-primary)', marginBottom: '4px' }}>
               إدارة تكاليف برمجة C++ ({filteredData.length})
             </h2>
-            <p style={{color: 'var(--text-secondary)', fontSize: '14px'}}>
-              جدول قاعدة البيانات: <code style={{direction: 'ltr', display: 'inline-block'}}>{COURSE_CONFIG.tableName}</code>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '14px' }}>
+              جدول قاعدة البيانات: <code style={{ direction: 'ltr', display: 'inline-block' }}>{COURSE_CONFIG.tableName}</code>
             </p>
           </div>
           <button onClick={fetchData} className="refresh-btn" title="تحديث البيانات">
             <RefreshCw size={16} className={isLoading ? 'loader' : ''} /> تحديث البيانات
           </button>
         </div>
-        
+
         <div className="filters-row">
-          <div style={{flex: 1.5, position: 'relative'}}>
-            <Search size={18} style={{position: 'absolute', right: '12px', top: '14px', color: 'var(--text-secondary)'}} />
-            <input 
-              type="text" 
-              className="form-input" 
-              style={{paddingRight: '38px'}}
+          <div style={{ flex: 1.5, position: 'relative' }}>
+            <Search size={18} style={{ position: 'absolute', right: '12px', top: '14px', color: 'var(--text-secondary)' }} />
+            <input
+              type="text"
+              className="form-input"
+              style={{ paddingRight: '38px' }}
               placeholder="ابحث باسم الطالب أو رقمه الأكاديمي..."
               value={searchName}
               onChange={e => setSearchName(e.target.value)}
             />
           </div>
-          <div style={{flex: 1}}>
-            <select 
+          <div style={{ flex: 1 }}>
+            <select
               className="form-select"
               value={filterGroup}
               onChange={e => setFilterGroup(e.target.value)}
@@ -138,8 +138,8 @@ export default function Dashboard() {
               ))}
             </select>
           </div>
-          <div style={{flex: 1}}>
-            <select 
+          <div style={{ flex: 1 }}>
+            <select
               className="form-select"
               value={filterAssignment}
               onChange={e => setFilterAssignment(e.target.value)}
@@ -154,7 +154,7 @@ export default function Dashboard() {
 
         {isLoading ? (
           <div className="loading-state">
-            <Loader2 className="loader" size={40}/> 
+            <Loader2 className="loader" size={40} />
             <p>جاري تحميل البيانات من Supabase ({COURSE_CONFIG.tableName})...</p>
           </div>
         ) : (
@@ -172,18 +172,18 @@ export default function Dashboard() {
               </thead>
               <tbody>
                 {filteredData.length === 0 ? (
-                  <tr><td colSpan="6" style={{textAlign:'center', padding: '32px', color: 'var(--text-secondary)'}}>لا توجد بيانات مطابقة للبحث</td></tr>
+                  <tr><td colSpan="6" style={{ textAlign: 'center', padding: '32px', color: 'var(--text-secondary)' }}>لا توجد بيانات مطابقة للبحث</td></tr>
                 ) : (
                   filteredData.map((row, i) => (
                     <tr key={i}>
-                      <td dir="ltr" style={{fontSize:'12px', color: 'var(--text-secondary)'}}>{row.timestamp}</td>
-                      <td style={{fontWeight: '600'}}>{row.studentName}</td>
+                      <td dir="ltr" style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>{row.timestamp}</td>
+                      <td style={{ fontWeight: '600' }}>{row.studentName}</td>
                       <td>{row.studentId}</td>
                       <td><span className="badge">{row.groupName}</span></td>
                       <td><span className="assignment-tag">{row.assignmentName}</span></td>
                       <td>
                         <a href={row.fileUrl} target="_blank" rel="noopener noreferrer" className="download-btn">
-                          <Download size={15}/> عرض / تحميل
+                          <Download size={15} /> عرض / تحميل
                         </a>
                       </td>
                     </tr>
