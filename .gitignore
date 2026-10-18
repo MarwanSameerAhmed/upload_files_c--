@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Data dumps and exports
+*.backup
+*.csv
+*.sql
